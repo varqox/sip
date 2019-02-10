@@ -49,7 +49,7 @@ using namespace std;
 using L = long long;
 
 mt19937_64 engine(chrono::system_clock::now().time_since_epoch().count());
-// losowy int z przedziału [a, b]: (więcej informacji na en.cppreference.com/w/cpp/numeric/random )
+// losowy long long z przedziału [a, b]: (więcej informacji na en.cppreference.com/w/cpp/numeric/random )
 L rd(L a, L b) {
 	return uniform_int_distribution<L>(a, b)(engine);
 }
