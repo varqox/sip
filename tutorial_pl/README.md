@@ -91,7 +91,7 @@ gen: [
 	tag1a-f utils/generatorka 5 10
 	tag2a utils/generatorka 100 100000
 	tag2b utils/generatorka 1000 10000
-	tag3-5a-d utils/generatorka 100000 1000000000
+	tag3a-5d utils/generatorka 100000 1000000000
 ]
 ```
 
