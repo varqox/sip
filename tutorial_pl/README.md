@@ -34,7 +34,7 @@ TODO: tutorial do pisania treści
 
 # Wzorcówki / rozwiązania
 
-W folderze prog/ umieść wszystkie rozwiązania do zadania. Bardzo zalecane jest napisanie rozwiązań wzorcowych, rozwiązań wolnych (brutów) i rozwiązań dające niepoprawne odpowiedzi. Sip akceptuje rozwiązania napisane w C++ (z rozszerzeniem .cpp) oraz w Pascalu (z rozszerzeniem .pas). Sip automatycznie traktuje rozwiązanie z najkrótszą nazwą jako rozwiązanie wzorcowe. W paczkach zadań Olimpiady Informatycznej można spotkać się ze zwyczajem, by rozwiązania zapisywać pod nazwami tag#.cpp, tags#.cpp, tagb#.cpp oznaczające kolejno rozwiązania poprawne, wolne i dające niepoprawne odpowiedzi (znak # oznacza dowolną liczbę), jednak sim nie wymaga takiego nazewnictwa plików. Przy dużej ilości rozwiązań rzeczywiście taki sposób jest sensowny, jednak zazwyczaj wystarczy nazywać pliki z krótkim opisem, np. tag_brute.cpp. 
+W folderze prog/ umieść wszystkie rozwiązania do zadania. Bardzo zalecane jest napisanie rozwiązań wzorcowych, rozwiązań wolnych (brutów) i rozwiązań dających niepoprawne odpowiedzi. Sip akceptuje rozwiązania napisane w C, C++ (z rozszerzeniem .cpp, lub mniej znanymi .cc, .cxx) oraz w Pascalu (z rozszerzeniem .pas). Sip automatycznie traktuje rozwiązanie z najkrótszą nazwą jako rozwiązanie wzorcowe. W paczkach zadań Olimpiady Informatycznej można spotkać się ze zwyczajem, by rozwiązania zapisywać pod nazwami tag#.cpp, tags#.cpp, tagb#.cpp oznaczające kolejno rozwiązania poprawne, wolne i dające niepoprawne odpowiedzi (znak # oznacza dowolną liczbę), jednak sim nie wymaga takiego nazewnictwa plików. Przy dużej ilości rozwiązań rzeczywiście taki sposób jest sensowny, jednak zazwyczaj wystarczy nazywać pliki z krótkim opisem, np. tag_brute.cpp. 
 
 Rozwiązania powinny wczytywać ze standardowego wejścia (np. cin) i wypisywać na standardowe wyjście (np. cout). Bardzo zalecane jest umieszczenie komentarza na samej górze każdego kodu z opisem rozwiązania (czy jest poprawne, czy nie - jak nie to dlaczego nie), opisem złożoności i autorem rozwiązania.
 
@@ -57,6 +57,7 @@ L rd(L a, L b) {
 int main(int argc, char* argv[]) {
 	// argument 0 jest pomijany
 	constexpr int ilosc_argumentow = 2;
+	// upewnienie się, że została wpisana dobra ilość argumentów
 	assert(argc == ilosc_argumentow + 1);
 
 	// zamienianie z tablicy charów na liczbę (więcej informacji na en.cppreference.com/w/cpp/string/byte/atoi )
@@ -65,8 +66,12 @@ int main(int argc, char* argv[]) {
 
 	int n = rd(1, max_n);
 	cout << n << '\n';
-	for(int i = 0; i < n; ++i)
-		cout << rd(-max_val, max_val) << ' ';
+	for(int i = 0; i < n; ++i) {
+		cout << rd(-max_val, max_val);
+		if(i != n - 1)
+			cout << ' ';
+	}
+	cout << '\n';
 }
 ```
 
@@ -95,7 +100,7 @@ gen: [
 ]
 ```
 
-Po zapisaniu pliku Sipfile, komenda `sip gen` wygeneruje wszystkie pliki *.in za pomocą generatorki, a potem wszystkie pliki *.out za pomocą wzorcówki.
+Po zapisaniu pliku Sipfile, komenda `sip gen` skompiluje generatorkę oraz wzorcówkę, następnie wygeneruje wszystkie pliki *.in za pomocą generatorki, a potem wszystkie pliki *.out za pomocą wzorcówki.
 
 # Plik konfiguracyjny Simfile
 
@@ -132,13 +137,14 @@ tests_files: [
 * name: nazwa zadania
 * label: tag zadania
 * memory_limit: limit pamięci (w MB)
+* scoring: dla każdej grupy testów ilość przyznawanych punktów (domyślnie daje po równo dla każdej grupy testów, tak by się sumowało do 100, oraz przydziela 0 pkt dla testów z grupy 0)
+Następnie ustawienia, które sim zazwyczaj generuje samemu:
 * solutions: lista programów (domyślnie nie trzeba pisać tej linijki)
 * checker: ścieżka do checkerki (domyślnie nie trzeba)
 * limits: dla każdego testu (bez prefixu nazwy testu) maksymalny limit czasu w sekundach (domyślnie sam generuje)
-* scoring: dla każdej grupy testów ilość przyznawanych punktów (domyślnie daje po równo dla każdej grupy testów, tak by się sumowało do 100)
-* test_files: dla każdego testu ścieżka do pliku wejściowego/wyjściowego (to jakiś bezsens, nie opłaca się tego ruszać bo domyślnie i tak nie trzeba)
+* test_files: dla każdego testu ścieżka do pliku wejściowego/wyjściowego (domyślnie sam generuje)
 
-Ponieważ nazwa zadania, label oraz limit pamięci są jedynymi parametrami, które są obowiązkowe, można je uzupełnić komendą (zamiast edytorem tekstu): `sip name [value]`, `sip label [value]`, `sip mem [value]`. Podobnie istnieją komendy: `sip main-sol [sol]`, `sip statement [value]`, `sip save scoring`.
+Ponieważ nazwa zadania, label oraz limit pamięci są jedynymi parametrami, które są obowiązkowe, można je uzupełnić komendą (zamiast edytorem tekstu): `sip name 'Nazwa Zadania'`, `sip label 'tag'`, `sip mem [liczba]`. Podobnie istnieją komendy: `sip main-sol [ścieżka do pliku]`, `sip statement [ścieżka do pliku]`, `sip save scoring`.
 
 # Checkerka
 
@@ -147,6 +153,6 @@ TODO reszta
 
 # Końcowe kroki
 
-By doczytać o komendach sip'a, wpisz `sip`. By wytestować programy (zobaczyć ile punktów dostają), wpisz `sip test prog`. By zakończyć tworzenie paczki (wrzucić na sima), wpisz `sip zip` (automatyczne czyszczenie pozostałości / skompilowanych programów i skompresowanie paczki).
+By doczytać o komendach sip'a, wpisz `sip`. By wytestować programy (zobaczyć ile punktów dostają), wpisz `sip test prog` (lub `sip test [prefix]`, gdzie `prefix` to prefix nazw rozwiązań, które należy wytestować). By zakończyć tworzenie paczki (wrzucić na sima), wpisz `sip zip` (automatyczne czyszczenie pozostałości / skompilowanych programów i skompresowanie paczki).
 
 By wrzucić paczkę na sima, wejdź w zakładkę "Problems", następnie kliknij "Add problem". Zazwyczaj nie trzeba zmieniać żadnych opcji, wystarczy wybrać plik .zip i kliknąć "Submit". Grzecznie poczekaj, aż paczka się wrzuci (czyli aż nie pojawi się nowe okienko). Jak się paczka wrzuci, przywita cię okienko z napisem "Job pending". Wtedy sim przetwarza paczkę. Po pewnym czasie status okienka się zmieni (trzeba odświeżyć stronę). Jeżeli nastąpił error, zostanie wypisany szczegółowy raport.
