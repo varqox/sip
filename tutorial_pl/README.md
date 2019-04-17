@@ -100,7 +100,7 @@ gen: [
 ]
 ```
 
-Po zapisaniu pliku Sipfile, komenda `sip gen` skompiluje generatorkę oraz wzorcówkę, następnie wygeneruje wszystkie pliki *.in za pomocą generatorki, a potem wszystkie pliki *.out za pomocą wzorcówki.
+Po zapisaniu pliku Sipfile, komenda `sip gen` skompiluje generatorkę oraz wzorcówkę (skompilowane pliki będą gdzieś w utils/cache/), następnie wygeneruje wszystkie pliki *.in za pomocą generatorki, a potem wszystkie pliki *.out za pomocą wzorcówki.
 
 # Plik konfiguracyjny Simfile
 
@@ -141,7 +141,7 @@ tests_files: [
 
 Następnie ustawienia, które sim zazwyczaj generuje samemu:
 
-* solutions: lista programów (domyślnie nie trzeba pisać tej linijki)
+* solutions: lista programów (domyślnie nie trzeba pisać tej linijki, pierwsze rozwiązanie na liście będzie rozwiązaniem wzorcowym, względem którego będą ustalone limity czasowe oraz pliki out)
 * checker: ścieżka do checkerki (domyślnie nie trzeba)
 * limits: dla każdego testu (bez prefixu nazwy testu) maksymalny limit czasu w sekundach (domyślnie sam generuje)
 * test_files: dla każdego testu ścieżka do pliku wejściowego/wyjściowego (domyślnie sam generuje)
