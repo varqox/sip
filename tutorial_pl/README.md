@@ -138,7 +138,9 @@ tests_files: [
 * label: tag zadania
 * memory_limit: limit pamięci (w MB)
 * scoring: dla każdej grupy testów ilość przyznawanych punktów (domyślnie daje po równo dla każdej grupy testów, tak by się sumowało do 100, oraz przydziela 0 pkt dla testów z grupy 0)
+
 Następnie ustawienia, które sim zazwyczaj generuje samemu:
+
 * solutions: lista programów (domyślnie nie trzeba pisać tej linijki)
 * checker: ścieżka do checkerki (domyślnie nie trzeba)
 * limits: dla każdego testu (bez prefixu nazwy testu) maksymalny limit czasu w sekundach (domyślnie sam generuje)
