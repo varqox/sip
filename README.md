@@ -1,3 +1,5 @@
+# Repository moved to monorepo: https://github.com/varqox/sim-project
+
 # sip [![Build Status](https://travis-ci.org/varqox/sip.svg)](https://travis-ci.org/varqox/sip)
 
 Sip is a tool for preparing and managing Sim problem packages
